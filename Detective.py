@@ -1,78 +1,90 @@
 import pygame
-import random
+import sys
 
 # Инициализация pygame
 pygame.init()
 
-# Размеры окна
-WIDTH = 800
-HEIGHT = 600
+# Задаем размеры окна
+win_width, win_height = 800, 600
 
-# Цвета
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
+# Создаем окно
+window = pygame.display.set_mode((win_width, win_height))
+pygame.display.set_caption("Потом название придумаем")
 
-# Создание окна
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Cube Escape")
+# Загрузка фоновых изображений комнат
+room_1_image = pygame.image.load("room1.png").convert()
+room_2_image = pygame.image.load("room2.jpg").convert()
+room_3_image = pygame.image.load("room3.jpg").convert()
+room_4_image = pygame.image.load("room4.jpg").convert()
+room_5_image = pygame.image.load("room5.jpg").convert()
+room_6_image = pygame.image.load("room6.jpg").convert()
 
-# Класс для сцены
-class Scene:
-    def __init__(self, text):
-        self.text = text
-        self.font = pygame.font.Font(None, 36)
-        self.text_render = self.font.render(self.text, True, WHITE)
-        self.text_rect = self.text_render.get_rect(center=(WIDTH // 2, HEIGHT // 2))
-        
-    def show(self):
-        screen.fill(BLACK)
-        screen.blit(self.text_render, self.text_rect)
-        pygame.display.flip()
-        
-    def handle_event(self, event):
-        pass
+# Переменная для хранения текущей комнаты
+current_room = room_1_image
 
-# Класс для сцены с кнопкой
-class ButtonScene(Scene):
-    def __init__(self, text, next_scene):
-        super().__init__(text)
-        self.next_scene = next_scene
-        
-    def show(self):
-        super().show()
-        pygame.draw.rect(screen, WHITE, (WIDTH // 2 - 100, HEIGHT // 2 + 50, 200, 50))
-        button_font = pygame.font.Font(None, 24)
-        button_text = button_font.render("Нажмите здесь", True, BLACK)
-        button_rect = button_text.get_rect(center=(WIDTH // 2, HEIGHT // 2 + 75))
-        screen.blit(button_text, button_rect)
-        
-    def handle_event(self, event):
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            if pygame.mouse.get_pressed()[0]:
-                mouse_pos = pygame.mouse.get_pos()
-                if (WIDTH // 2 - 100 < mouse_pos[0] < WIDTH // 2 + 100 and
-                        HEIGHT // 2 + 50 < mouse_pos[1] < HEIGHT // 2 + 100):
-                    scenes.remove(self)
-                    scenes.append(self.next_scene)
-
-# Создание сцен
-start_scene = Scene("Начало игры")
-story_scene = ButtonScene("Сюжетное окно", Scene("Сюжетная линия"))
-additional_scene = ButtonScene("Дополнительное окно", Scene("Дополнительная сцена"))
-game_scene = Scene("Основное игровое поле")
-
-# Список сцен
-scenes = [start_scene, story_scene, additional_scene, game_scene]
-
-# Главный игровой цикл
+# Основной игровой цикл
 running = True
-current_scene = scenes[0]
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        current_scene.handle_event(event)
-        
-    current_scene.show()
+            pygame.quit()
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            # Переключение комнат с помощью стрелок
+            if event.key == pygame.K_RIGHT:
+                if current_room == room_1_image:
+                    current_room = room_2_image
+                elif current_room == room_2_image:
+                    current_room = room_3_image
+                elif current_room == room_3_image:
+                    current_room = room_4_image
+                elif current_room == room_4_image:
+                    current_room = room_1_image
 
-pygame.quit()
+            elif event.key == pygame.K_LEFT:
+                if current_room == room_2_image:
+                    current_room = room_1_image
+                elif current_room == room_3_image:
+                    current_room = room_2_image
+                elif current_room == room_4_image:
+                    current_room = room_3_image
+                elif current_room == room_1_image:
+                    current_room = room_4_image
+            
+            # С этого момента всё идёт комом
+
+            elif event.key == pygame.K_UP:
+                if current_room == room_1_image or room_2_image == current_room or current_room == room_3_image or current_room == room_4_image:
+                    current_room = room_5_image
+
+            elif event.key == pygame.K_UP:
+                if current_room == room_5_image:
+                    current_room = room_3_image
+
+            elif event.key == pygame.K_DOWN:
+                if current_room == room_1_image or room_2_image == current_room or current_room == room_3_image or current_room == room_4_image:
+                    current_room = room_6_image
+
+            elif event.key == pygame.K_DOWN:
+                if current_room == room_6_image:
+                    current_room = room_3_image
+
+            elif event.key == pygame.K_DOWN:
+                if current_room == room_1_image:
+                    current_room = room_6_image
+                elif current_room == room_2_image:
+                    current_room = room_6_image
+                elif current_room == room_3_image:
+                    current_room = room_6_image
+                elif current_room == room_4_image:
+                    current_room = room_6_image
+                elif current_room == room_5_image:
+                    current_room = room_6_image
+
+    # Отрисовка текущей комнаты
+    window.blit(current_room, (0, 0))
+
+    # Обновление экрана
+    pygame.display.flip()
