@@ -21,6 +21,8 @@ room_6_image = pygame.image.load("room6.jpg").convert()
 
 # Переменная для хранения текущей комнаты
 current_room = room_1_image
+room_num = 0
+main_rooms = (room_1_image, room_2_image, room_3_image, room_4_image)
 
 # Основной игровой цикл
 running = True
@@ -34,54 +36,30 @@ while running:
         elif event.type == pygame.KEYDOWN:
             # Переключение комнат с помощью стрелок
             if event.key == pygame.K_RIGHT:
-                if current_room == room_1_image:
-                    current_room = room_2_image
-                elif current_room == room_2_image:
-                    current_room = room_3_image
-                elif current_room == room_3_image:
-                    current_room = room_4_image
-                elif current_room == room_4_image:
-                    current_room = room_1_image
+                if current_room in main_rooms:
+                    room_num += 1
+                    if room_num > 3:
+                        room_num = 0
+                    current_room = main_rooms[room_num]
 
-            elif event.key == pygame.K_LEFT:
-                if current_room == room_2_image:
-                    current_room = room_1_image
-                elif current_room == room_3_image:
-                    current_room = room_2_image
-                elif current_room == room_4_image:
-                    current_room = room_3_image
-                elif current_room == room_1_image:
-                    current_room = room_4_image
-            
-            # С этого момента всё идёт комом
+            if event.key == pygame.K_LEFT:
+                if current_room in main_rooms:
+                    room_num -= 1
+                    if room_num < 0:
+                        room_num = 3
+                    current_room = main_rooms[room_num]
 
-            elif event.key == pygame.K_UP:
-                if current_room == room_1_image or room_2_image == current_room or current_room == room_3_image or current_room == room_4_image:
+            if event.key == pygame.K_UP:
+                if current_room in main_rooms:
                     current_room = room_5_image
+                elif current_room == room_6_image:
+                    current_room = main_rooms[room_num]
 
-            elif event.key == pygame.K_UP:
-                if current_room == room_5_image:
-                    current_room = room_3_image
-
-            elif event.key == pygame.K_DOWN:
-                if current_room == room_1_image or room_2_image == current_room or current_room == room_3_image or current_room == room_4_image:
-                    current_room = room_6_image
-
-            elif event.key == pygame.K_DOWN:
-                if current_room == room_6_image:
-                    current_room = room_3_image
-
-            elif event.key == pygame.K_DOWN:
-                if current_room == room_1_image:
-                    current_room = room_6_image
-                elif current_room == room_2_image:
-                    current_room = room_6_image
-                elif current_room == room_3_image:
-                    current_room = room_6_image
-                elif current_room == room_4_image:
+            if event.key == pygame.K_DOWN:
+                if current_room in main_rooms:
                     current_room = room_6_image
                 elif current_room == room_5_image:
-                    current_room = room_6_image
+                    current_room = main_rooms[room_num]
 
     # Отрисовка текущей комнаты
     window.blit(current_room, (0, 0))
