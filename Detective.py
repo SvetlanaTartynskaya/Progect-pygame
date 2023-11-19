@@ -5,7 +5,7 @@ import sys
 pygame.init()
 
 # Задаем размеры окна
-win_width, win_height = 800, 600
+win_width, win_height = 1280, 1024
 
 # Создаем окно
 window = pygame.display.set_mode((win_width, win_height))
