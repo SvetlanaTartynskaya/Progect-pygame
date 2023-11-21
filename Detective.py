@@ -1,6 +1,8 @@
 import pygame
 import sys
 
+from pygame import Surface
+
 if __name__ == '__main__':
     # Инициализация pygame
     pygame.init()
@@ -40,49 +42,80 @@ if __name__ == '__main__':
     room_6_surface.blit(room_6_image, (0, 0))
 
     # Переменная для хранения текущей комнаты
-    current_room = room_1_surface
+    current_room: Surface = room_1_surface
     room_num = 0
     main_rooms = (room_1_surface, room_2_surface, room_3_surface, room_4_surface)
+
+    screen = pygame.display.set_mode((win_width, win_height))
+
+    # Загружаем фон экрана
+    background_image = pygame.image.load("background.jpg")
+
+    # Загружаем изображение кнопки пуск
+    start_button_image = pygame.image.load("start_button.png")
+
+    # Определяем координаты кнопки пуск
+    start_button_x = win_width // 2 - start_button_image.get_width() // 2
+    start_button_y = win_height // 2 - start_button_image.get_height() // 2
 
     # Основной игровой цикл
     running = True
 
+    background_image = pygame.image.load("start_background.png")
+
+    # Загрузка кнопки
+    button_image = pygame.image.load("start_button.png")
+    button_rect = button_image.get_rect()
+    button_rect.center = (win_width // 2, win_height // 2)
+
+    # Основной игровой цикл
+    running = True
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                # Переключение комнат с помощью стрелок
-                if event.key == pygame.K_RIGHT:
-                    if current_room in main_rooms:
-                        room_num += 1
-                        if room_num > 3:
-                            room_num = 0
-                        current_room = main_rooms[room_num]
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                # Проверка нажатия на кнопку "Пуск"
+                if button_rect.collidepoint(event.pos):
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            running = False
+                            pygame.quit()
+                            sys.exit()
+                        elif event.type == pygame.KEYDOWN:
+                            # Переключение комнат с помощью стрелок
+                            if event.key == pygame.K_RIGHT:
+                                if current_room in main_rooms:
+                                    room_num += 1
+                                if room_num > 3:
+                                    room_num = 0
+                                current_room = main_rooms[room_num]
 
-                if event.key == pygame.K_LEFT:
-                    if current_room in main_rooms:
-                        room_num -= 1
-                        if room_num < 0:
-                            room_num = 3
-                        current_room = main_rooms[room_num]
+                        if event.key == pygame.K_LEFT:
+                            if current_room in main_rooms:
+                                room_num -= 1
+                            if room_num < 0:
+                                room_num = 3
+                            current_room = main_rooms[room_num]
 
-                if event.key == pygame.K_UP:
-                    if current_room in main_rooms:
-                        current_room = room_5_surface
-                    elif current_room == room_6_surface:
-                        current_room = main_rooms[room_num]
+                        if event.key == pygame.K_UP:
+                            if current_room in main_rooms:
+                                current_room = room_5_surface
+                            elif current_room == room_6_surface:
+                                current_room = main_rooms[room_num]
 
-                if event.key == pygame.K_DOWN:
-                    if current_room in main_rooms:
-                        current_room = room_6_surface
-                    elif current_room == room_5_surface:
-                        current_room = main_rooms[room_num]
+                        if event.key == pygame.K_DOWN:
+                            if current_room in main_rooms:
+                                current_room = room_6_surface
+                            elif current_room == room_5_surface:
+                                current_room = main_rooms[room_num]
 
         # Отрисовка текущей комнаты
         window.blit(current_room, (0, 0))
+
+        screen.blit(background_image, (0, 0))
+        screen.blit(start_button_image, (start_button_x, start_button_y))
+        pygame.display.flip()
 
         # Обновление экрана
         pygame.display.flip()
