@@ -15,12 +15,12 @@ if __name__ == '__main__':
     pygame.display.set_caption("Потом название придумаем")
 
     # Загрузка фоновых изображений комнат
-    room_1_image = pygame.image.load("room1.png").convert()
-    room_2_image = pygame.image.load("room2.jpg").convert()
-    room_3_image = pygame.image.load("room3.jpg").convert()
-    room_4_image = pygame.image.load("room4.jpg").convert()
-    room_5_image = pygame.image.load("room5.jpg").convert()
-    room_6_image = pygame.image.load("room6.jpg").convert()
+    room_1_image = pygame.image.load("game.room1.png").convert()
+    room_2_image = pygame.image.load("game.room2.png").convert()
+    room_3_image = pygame.image.load("game.room3.png").convert()
+    room_4_image = pygame.image.load("game.room4.png").convert()
+    room_5_image = pygame.image.load("game.room5.png").convert()
+    room_6_image = pygame.image.load("game.room5.png").convert()
 
     # Создание отдельных экземпляров класса Surface для каждой комнаты
     room_1_surface = pygame.Surface((win_width, win_height))
@@ -54,18 +54,11 @@ if __name__ == '__main__':
     # Загружаем изображение кнопки пуск
     start_button_image = pygame.image.load("start_button.png")
 
-    # Определяем координаты кнопки пуск
-    start_button_x = win_width // 2 - start_button_image.get_width() // 2
-    start_button_y = win_height // 2 - start_button_image.get_height() // 2
-
-    background_image = pygame.image.load("start_background.png")
-
     # Загрузка кнопки
-    button_image = pygame.image.load("start_button.png")
-    button_rect = button_image.get_rect()
-    button_rect.center = (win_width // 2, win_height // 2)
+    button_rect = start_button_image.get_rect()
+    button_rect.topleft = (770, 430)
     screen.blit(background_image, (0, 0))
-    screen.blit(start_button_image, (start_button_x, start_button_y))
+    screen.blit(start_button_image, (770, 430))
 
     # Основной игровой цикл
     running = True
