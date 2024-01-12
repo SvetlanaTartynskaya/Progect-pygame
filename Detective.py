@@ -1,5 +1,6 @@
 import pygame
 import sys
+import Tetris
 
 from pygame import Surface
 
@@ -98,7 +99,11 @@ if __name__ == '__main__':
                         current_room = room_6_surface
                     elif current_room == room_5_surface:
                         current_room = main_rooms[room_num]
-
+                if event.key == pygame.K_SPACE:
+                    if game_start:
+                        Tetris.main()
+                        window = pygame.display.set_mode((win_width, win_height))
+                        pygame.display.set_caption("Потом название придумаем")
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if button_rect.collidepoint(event.pos):
                     game_start = True
