@@ -1,5 +1,5 @@
-import pygame
 import random
+import pygame
 
 # инициализируем размеры окна и сетки игрового поля
 width = 800
@@ -175,8 +175,3 @@ def main():
 
         pygame.display.flip()
         clock.tick(3)
-
-    pygame.quit()
-
-if __name__ == "__main__":
-    main()
