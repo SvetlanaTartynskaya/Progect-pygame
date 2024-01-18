@@ -41,6 +41,18 @@ if __name__ == '__main__':
     room_5_surface = pygame.Surface((win_width, win_height))
     room_5_surface.blit(room_5_image, (0, 0))
 
+        # БД
+    conn = sqlite3.connect('chooses.db')
+    cursor = conn.cursor()
+    cursor.execute('''CREATE TABLE IF NOT EXISTS chooses (
+                        room11 INT,
+                        room12 INT,
+                        room2 INT,
+                        room3 INT,
+                        room41 INT,
+                        room42 INT
+                    )''')
+
     # Переменная для хранения текущей комнаты
     current_room: Surface = room_1_surface
     room_num = 0
