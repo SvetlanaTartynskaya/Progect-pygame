@@ -96,7 +96,8 @@ def main():
 
     clock = pygame.time.Clock()
 
-    game_over = False
+    global game_over_bedroom
+    game_over_bedroom = False
 
     # создаем сетку и текущую фигуру
     grid = create_grid()
@@ -109,7 +110,7 @@ def main():
     while not game_over:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                game_over = True
+                game_over_bedroom = True
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
@@ -149,7 +150,7 @@ def main():
                             game_over = True
                         grid[current_y + row][current_x + col] = current_color
                         if lines_cleared >= 10:
-                            game_over = True
+                            game_over_bedroom = True
 
             # очищаем заполненные строки и увеличиваем счетчик очищенных строк
             lines_cleared += clear_rows(grid)
@@ -174,7 +175,7 @@ def main():
         screen.blit(text, (width - text.get_width() - 10, 45))
 
         pygame.display.flip()
-        clock.tick(7)
+        clock.tick(3)
 
     pygame.quit()
 
