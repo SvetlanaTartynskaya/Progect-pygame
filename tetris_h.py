@@ -174,7 +174,7 @@ def main():
         screen.blit(text, (width - text.get_width() - 10, 45))
 
         pygame.display.flip()
-        clock.tick(3)
+        clock.tick(7)
 
     pygame.quit()
 
