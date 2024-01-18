@@ -87,7 +87,7 @@ while not game_over:
             ball_speed_y = -ball_speed_y
 
     # проверка победы
-    if counter >= 2:
+    if counter >= 12:
         # открытие окна с результатами
         result_screen = pygame.display.set_mode((screen_width, screen_height))
         pygame.display.set_caption('Сюжет')
@@ -117,13 +117,13 @@ while not game_over:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     mouse_pos = event.pos
                     if button1.collidepoint(mouse_pos):
-                        cursor.execute("INSERT INTO user_results (result) VALUES (1)")
-                        conn.commit()
+                        sqlite3.Cursor.execute('''INSERT INTO chooses (room11) VALUES (1)''')
+                        sqlite3.Connection.commit()
                         pygame.quit()
                         exit()
                     elif button2.collidepoint(mouse_pos):
-                        cursor.execute("INSERT INTO user_results (result) VALUES (-1)")
-                        conn.commit()
+                        sqlite3.Cursor.execute("INSERT INTO chooses (room11) VALUES (-1)")
+                        sqlite3.Connection.commit()
                         done = True
                         pygame.quit()
                         exit()
