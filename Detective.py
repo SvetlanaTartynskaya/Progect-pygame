@@ -45,8 +45,15 @@ if __name__ == '__main__':
     # БД
     conn = sqlite3.connect('chooses.db')
     cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS user_results
-                  (id INTEGER PRIMARY KEY AUTOINCREMENT, result INTEGER)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS chooses (
+                        room11 INT,
+                        room12 INT,
+                        room21 INT,
+                        room22 INT,
+                        room3 INT,
+                        room41 INT,
+                        room42 INT
+                    )''')
 
     # переменная для хранения текущей комнаты
     current_room: surface.Surface = room_1_surface
