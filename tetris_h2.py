@@ -179,12 +179,12 @@ def main():
                                     elif event.type == pygame.MOUSEBUTTONDOWN:
                                         mouse_pos = event.pos
                                         if button1.collidepoint(mouse_pos):
-                                            sqlite3.Cursor.execute('''INSERT INTO chooses (room21) VALUES (1)''')
+                                            sqlite3.Cursor.execute('''INSERT INTO chooses (room41) VALUES (1)''')
                                             sqlite3.Connection.commit()
                                             pygame.quit()
                                             exit()
                                         elif button2.collidepoint(mouse_pos):
-                                            sqlite3.Cursor.execute("INSERT INTO chooses (room21) VALUES (-1)")
+                                            sqlite3.Cursor.execute("INSERT INTO chooses (room41) VALUES (-1)")
                                             sqlite3.Connection.commit()
                                             done = True
                                             pygame.quit()
