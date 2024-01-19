@@ -2,9 +2,8 @@ import pygame
 import sys
 import machinki
 import tetris
-from tetris import win1, win2, win3
+from tetris import win2
 import arcadashka
-from arcadashka import win1, win2, win3
 from pygame import Surface
 
 if __name__ == '__main__':
