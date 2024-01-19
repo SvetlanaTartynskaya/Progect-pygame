@@ -2,7 +2,9 @@ import pygame
 import sys
 import machinki
 import tetris
+from tetris import win1, win2, win3
 import arcadashka
+from arcadashka import win1, win2, win3
 from pygame import Surface
 
 if __name__ == '__main__':
@@ -22,25 +24,6 @@ if __name__ == '__main__':
     room_3_image = pygame.image.load("game.room3.png").convert()
     room_4_image = pygame.image.load("game.room4.png").convert()
     room_5_image = pygame.image.load("game.room5.png").convert()
-
-    connection = sqlite3.connect('choose.db')
-
-# Создаем курсор, который будет использоваться для выполнения операций с базой данных
-    cursor = connection.cursor()
-
-# Запрос на создание таблицы в базе данных
-    create_table_query = '''CREATE TABLE IF NOT EXISTS my_table(
-                            id INTEGER PRIMARY KEY AUTOINCREMENT,
-                            room11 INT,
-                            room12 INT,
-                            room2 INT,
-                            room3 INT,
-                            room41 INT,
-                            room42 INT
-                        )'''
-
-# Закрываем подключение к базе данных
-    cursor.close()
 
     # Создание отдельных экземпляров класса Surface для каждой комнаты
     room_1_surface = pygame.Surface((win_width, win_height))
