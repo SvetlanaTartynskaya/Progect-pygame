@@ -69,6 +69,21 @@ if __name__ == '__main__':
 
     tetrisdiff = 0
     arcadediff = 0
+    connection = sqlite3.connect('chooses.db')
+
+# Создаем курсор, который будет использоваться для выполнения операций с базой данных
+    cursor = connection.cursor()
+
+# Запрос на создание таблицы в базе данных
+    chooses = '''CREATE TABLE IF NOT EXISTS my_table(
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            room11 INT,
+                            room12 INT,
+                            room2 INT,
+                            room3 INT,
+                            room41 INT,
+                            room42 INT
+                        )'''
 
     # Основной игровой цикл
     running = True
