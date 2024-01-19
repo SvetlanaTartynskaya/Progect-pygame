@@ -130,4 +130,6 @@ def main():
 
         pygame.display.flip()
 
-        clock.ti
+        clock = pygame.time.Clock()
+        clock.tick(t)
+
