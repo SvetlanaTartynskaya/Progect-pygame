@@ -22,7 +22,7 @@ if __name__ == '__main__':
     room_2_image = pygame.image.load("game.room2.png").convert()
     room_3_image = pygame.image.load("game.room3.png").convert()
     room_4_image = pygame.image.load("game.room4.png").convert()
-    room_5_image = pygame.image.load("game.room5.png").convert()
+    room_5_image = pygame.image.load("game.room5.jpg").convert()
 
     # Создание отдельных экземпляров класса Surface для каждой комнаты
     room_1_surface = pygame.Surface((win_width, win_height))
@@ -65,7 +65,7 @@ if __name__ == '__main__':
     mgbutton5_rect = pygame.Rect(495, 430, 100, 100)
     mgbutton6_rect = pygame.Rect(135, 665, 100, 100)
     mgbutton7_rect = pygame.Rect(580, 653, 100, 100)
-    mgbutton_rect_end = pygame.Rect("Маша, скинь координаты")
+    mgbutton_rect_end = pygame.Rect(555, 550, 100, 100)
 
     tetrisdiff = 0
     arcadediff = 0
