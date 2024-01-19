@@ -111,58 +111,195 @@ def main():
         # проверка победы
         if counter >= c:
             if arcadediff == 0:
-                win1 = True
+                result_screen = pygame.display.set_mode((screen_width, screen_height))
+                pygame.display.set_caption('Сюжет')
+
+                # фраза по середине
+                font = pygame.font.Font(None, 46)
+                result_text = font.render('Что вы заметили в комнате?', True, white)
+                result_text_rect = result_text.get_rect()
+                result_text_rect.center = (screen_width // 2, screen_height // 2 - 200)
+
+                # кнопки
+                button1 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 50, 700, 60)
+                button2 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 150, 700, 60)
+                button_font = pygame.font.Font(None, 36)
+                button_text1 = button_font.render('Улика! Видимо кто-то отодвинул картину, но зачем?', True, black)
+                button_text2 = button_font.render('За картиной капли крови', True, black)
+                button_text_rect1 = button_text1.get_rect()
+                button_text_rect2 = button_text2.get_rect()
+                button_text_rect1.center = button1.center
+                button_text_rect2.center = button2.center
+
+                while True:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            exit()
+                        elif event.type == pygame.MOUSEBUTTONDOWN:
+                            mouse_pos = event.pos
+                            if button1.collidepoint(mouse_pos):
+                                sqlite3.Cursor.execute('''INSERT INTO chooses (room11) VALUES (1)''')
+                                sqlite3.Connection.commit()
+                                pygame.quit()
+                                exit()
+                            elif button2.collidepoint(mouse_pos):
+                                sqlite3.Cursor.execute("INSERT INTO chooses (room11) VALUES (-1)")
+                                sqlite3.Connection.commit()
+                                done = True
+                                pygame.quit()
+                                exit()
+
+                    result_screen.fill(black)
+                    result_screen.blit(result_text, result_text_rect)
+                    pygame.draw.rect(result_screen, white, button1)
+                    pygame.draw.rect(result_screen, white, button2)
+                    result_screen.blit(button_text1, button_text_rect1)
+                    result_screen.blit(button_text2, button_text_rect2)
+                    pygame.display.flip()
             elif arcadediff == 1:
-                win2 = True
+                # открытие окна с результатами
+                result_screen = pygame.display.set_mode((screen_width, screen_height))
+                pygame.display.set_caption('Сюжет')
+
+                # фраза по середине
+                font = pygame.font.Font(None, 46)
+                result_text = font.render('Что вы заметили в этой комнате?', True, white)
+                result_text_rect = result_text.get_rect()
+                result_text_rect.center = (screen_width // 2, screen_height // 2 - 200)
+
+                # кнопки
+                button1 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 50, 700, 60)
+                button2 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 150, 700, 60)
+                button_font = pygame.font.Font(None, 36)
+                button_text1 = button_font.render('Маньяк взял нож, как орудие убийства', True, black)
+                button_text2 = button_font.render('Нож упал случайно', True, black)
+                button_text_rect1 = button_text1.get_rect()
+                button_text_rect2 = button_text2.get_rect()
+                button_text_rect1.center = button1.center
+                button_text_rect2.center = button2.center
+
+                while True:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
+                            pygame.quit()
+                            exit()
+                        elif event.type == pygame.MOUSEBUTTONDOWN:
+                            mouse_pos = event.pos
+                            if button1.collidepoint(mouse_pos):
+                                sqlite3.Cursor.execute('''INSERT INTO chooses (room3) VALUES (1)''')
+                                sqlite3.Connection.commit()
+                                pygame.quit()
+                                exit()
+                            elif button2.collidepoint(mouse_pos):
+                                sqlite3.Cursor.execute("INSERT INTO chooses (room3) VALUES (-1)")
+                                sqlite3.Connection.commit()
+                                done = True
+                                pygame.quit()
+                                exit()
+
+                    result_screen.fill(black)
+                    result_screen.blit(result_text, result_text_rect)
+                    pygame.draw.rect(result_screen, white, button1)
+                    pygame.draw.rect(result_screen, white, button2)
+                    result_screen.blit(button_text1, button_text_rect1)
+                    result_screen.blit(button_text2, button_text_rect2)
+                    pygame.display.flip()
             elif arcadediff == 2:
-                win3 = True
-            # открытие окна с результатами
-            result_screen = pygame.display.set_mode((screen_width, screen_height))
-            pygame.display.set_caption('Сюжет')
+                # открытие окна с результатами
+                result_screen = pygame.display.set_mode((screen_width, screen_height))
+                pygame.display.set_caption('Сюжет')
 
-            # фраза по середине
-            font = pygame.font.Font(None, 46)
-            result_text = font.render('Что вы заметили в комнате?', True, white)
-            result_text_rect = result_text.get_rect()
-            result_text_rect.center = (screen_width // 2, screen_height // 2 - 200)
+                # фраза по середине
+                font = pygame.font.Font(None, 46)
+                result_text = font.render('Что вы заметили в комнате?', True, white)
+                result_text_rect = result_text.get_rect()
+                result_text_rect.center = (screen_width // 2, screen_height // 2 - 200)
 
-            # кнопки
-            button1 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 50, 700, 60)
-            button2 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 150, 700, 60)
-            button_font = pygame.font.Font(None, 36)
-            button_text1 = button_font.render('Улика! Видимо кто-то отодвинул картину, но зачем?', True, black)
-            button_text2 = button_font.render('За картиной капли крови', True, black)
-            button_text_rect1 = button_text1.get_rect()
-            button_text_rect2 = button_text2.get_rect()
-            button_text_rect1.center = button1.center
-            button_text_rect2.center = button2.center
+                # кнопки
+                button1 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 50, 700, 60)
+                button2 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 150, 700, 60)
+                button_font = pygame.font.Font(None, 36)
+                button_text1 = button_font.render('Свидетельство о рождении на ЕЁ имя', True, black)
+                button_text2 = button_font.render('Она врала мне так долго!', True, black)
+                button_text_rect1 = button_text1.get_rect()
+                button_text_rect2 = button_text2.get_rect()
+                button_text_rect1.center = button1.center
+                button_text_rect2.center = button2.center
 
-            while True:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                        exit()
-                    elif event.type == pygame.MOUSEBUTTONDOWN:
-                        mouse_pos = event.pos
-                        if button1.collidepoint(mouse_pos):
-                            sqlite3.Cursor.execute('''INSERT INTO chooses (room11) VALUES (1)''')
-                            sqlite3.Connection.commit()
+                while True:
+                    for event in pygame.event.get():
+                        if event.type == pygame.QUIT:
                             pygame.quit()
                             exit()
-                        elif button2.collidepoint(mouse_pos):
-                            sqlite3.Cursor.execute("INSERT INTO chooses (room11) VALUES (-1)")
-                            sqlite3.Connection.commit()
-                            done = True
-                            pygame.quit()
-                            exit()
+                        elif event.type == pygame.MOUSEBUTTONDOWN:
+                            mouse_pos = event.pos
+                            if button1.collidepoint(mouse_pos):
+                                sqlite3.Cursor.execute('''INSERT INTO chooses (room42) VALUES (1)''')
+                                sqlite3.Connection.commit()
+                                pygame.quit()
+                                exit()
+                            elif button2.collidepoint(mouse_pos):
+                                sqlite3.Cursor.execute("INSERT INTO chooses (room42) VALUES (-1)")
+                                sqlite3.Connection.commit()
+                                done = True
+                                pygame.quit()
+                                exit()
 
-                result_screen.fill(black)
-                result_screen.blit(result_text, result_text_rect)
-                pygame.draw.rect(result_screen, white, button1)
-                pygame.draw.rect(result_screen, white, button2)
-                result_screen.blit(button_text1, button_text_rect1)
-                result_screen.blit(button_text2, button_text_rect2)
-                pygame.display.flip()
+                    result_screen.fill(black)
+                    result_screen.blit(result_text, result_text_rect)
+                    pygame.draw.rect(result_screen, white, button1)
+                    pygame.draw.rect(result_screen, white, button2)
+                    result_screen.blit(button_text1, button_text_rect1)
+                    result_screen.blit(button_text2, button_text_rect2)
+                    pygame.display.flip()
+                    # открытие окна с результатами
+                    result_screen = pygame.display.set_mode((screen_width, screen_height))
+                    pygame.display.set_caption('Сюжет')
+
+                    # фраза по середине
+                    font = pygame.font.Font(None, 46)
+                    result_text = font.render('Что вы заметили в комнате?', True, white)
+                    result_text_rect = result_text.get_rect()
+                    result_text_rect.center = (screen_width // 2, screen_height // 2 - 200)
+
+                    # кнопки
+                    button1 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 50, 700, 60)
+                    button2 = pygame.Rect(screen_width // 2 - 320, screen_height // 2 + 150, 700, 60)
+                    button_font = pygame.font.Font(None, 36)
+                    button_text1 = button_font.render('Улика! Видимо кто-то отодвинул картину, но зачем?', True, black)
+                    button_text2 = button_font.render('За картиной капли крови', True, black)
+                    button_text_rect1 = button_text1.get_rect()
+                    button_text_rect2 = button_text2.get_rect()
+                    button_text_rect1.center = button1.center
+                    button_text_rect2.center = button2.center
+
+                    while True:
+                        for event in pygame.event.get():
+                            if event.type == pygame.QUIT:
+                                pygame.quit()
+                                exit()
+                            elif event.type == pygame.MOUSEBUTTONDOWN:
+                                mouse_pos = event.pos
+                                if button1.collidepoint(mouse_pos):
+                                    sqlite3.Cursor.execute('''INSERT INTO chooses (room11) VALUES (1)''')
+                                    sqlite3.Connection.commit()
+                                    pygame.quit()
+                                    exit()
+                                elif button2.collidepoint(mouse_pos):
+                                    sqlite3.Cursor.execute("INSERT INTO chooses (room11) VALUES (-1)")
+                                    sqlite3.Connection.commit()
+                                    done = True
+                                    pygame.quit()
+                                    exit()
+
+                        result_screen.fill(black)
+                        result_screen.blit(result_text, result_text_rect)
+                        pygame.draw.rect(result_screen, white, button1)
+                        pygame.draw.rect(result_screen, white, button2)
+                        result_screen.blit(button_text1, button_text_rect1)
+                        result_screen.blit(button_text2, button_text_rect2)
+                        pygame.display.flip()
 
         # обновление экрана
         screen.fill(black)
