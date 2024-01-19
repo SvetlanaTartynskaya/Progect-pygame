@@ -1,11 +1,15 @@
 import random
 import pygame
+from Detective import tetrisdiff
 
 # инициализируем размеры окна и сетки игрового поля
 width = 800
 height = 600
 grid_width = 10
 grid_height = 20
+win1 = False
+win2 = False
+win3 = False
 
 # инициализируем размер каждой ячейки на игровом поле
 cell_size = 30
@@ -171,6 +175,12 @@ def main():
                             game_over = True
                         grid[current_y + row][current_x + col] = current_color
                         if lines_cleared >= k:
+                            if tetrisdiff == 0:
+                                win1 = True
+                            elif tetrisdiff == 1:
+                                win2 = True
+                            elif tetrisdiff == 2:
+                                win3 = True
                             game_over = True
 
             # очищаем заполненные строки и увеличиваем счетчик очищенных строк
