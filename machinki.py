@@ -7,8 +7,7 @@ pygame.init()
 # установка таймера событий каждую секунду.
 pygame.time.set_timer(pygame.USEREVENT, 1000)
 
-con = sqlite3.connect('chooses.db')
-cursor = con.cursor()
+win = False
 
 # определение цветов.
 black = (0, 0, 0)
@@ -105,6 +104,7 @@ def main():
         pygame.time.delay(10)
 
         if game_over_win:
+            win = True
             pov.fill(black)
             text = font.render("Вы прошли дальше!", True, red)
             place = text.get_rect(center=(w // 2, h // 2))
@@ -129,47 +129,4 @@ def main():
         time_counter += 1
 
         if time_counter >= 2000:
-# открытие окна с результатами
-            result_screen = pygame.display.set_mode((w, h))
-            pygame.display.set_caption('Сюжет')
-    
-            # фраза по середине
-            font = pygame.font.Font(None, 46)
-            result_text = font.render('Что вы заметили в комнате?', True, white)
-            result_text_rect = result_text.get_rect()
-            result_text_rect.center = (w // 2, h // 2 - 200)
-    
-            # кнопки
-            button1 = pygame.Rect(w // 2 - 320, h // 2 + 50, 700, 60)
-            button2 = pygame.Rect(w // 2 - 320, h // 2 + 150, 700, 60)
-            button_font = pygame.font.Font(None, 36)
-            button_text1 = button_font.render('За дощечку хватались руками, попытка спастись', True, black)
-            button_text2 = button_font.render('Криво положили плитку или там тайник', True, black)
-            button_text_rect1 = button_text1.get_rect()
-            button_text_rect2 = button_text2.get_rect()
-            button_text_rect1.center = button1.center
-            button_text_rect2.center = button2.center
-    
-            while True:
-                for event in pygame.event.get():
-                    if event.type == pygame.QUIT:
-                        pygame.quit()
-                    elif event.type == pygame.MOUSEBUTTONDOWN:
-                        mouse_pos = event.pos
-                        if button1.collidepoint(mouse_pos):
-                            cursor.execute('''INSERT INTO chooses (room2) VALUES (1)''')
-                            cursor.commit()
-                            pygame.quit()
-                        elif button2.collidepoint(mouse_pos):
-                            sqlite3.Cursor.execute("INSERT INTO chooses (room2) VALUES (-1)")
-                            sqlite3.Connection.commit()
-                            done = True
-                            pygame.quit()
-    
-                result_screen.fill(black)
-                result_screen.blit(result_text, result_text_rect)
-                pygame.draw.rect(result_screen, white, button1)
-                pygame.draw.rect(result_screen, white, button2)
-                result_screen.blit(button_text1, button_text_rect1)
-                result_screen.blit(button_text2, button_text_rect2)
-                pygame.display.flip()
+            win = True
