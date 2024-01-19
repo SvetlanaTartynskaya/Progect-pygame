@@ -1,9 +1,13 @@
 import pygame
 import random
 import sqlite3
+from Detective import arcadediff
 
 t = 60
 c = 12
+win1 = False
+win2 = False
+win3 = False
 # инициализация pygame
 pygame.init()
 
@@ -106,6 +110,12 @@ def main():
 
         # проверка победы
         if counter >= c:
+            if arcadediff == 0:
+                win1 = True
+            elif arcadediff == 1:
+                win2 = True
+            elif arcadediff == 2:
+                win3 = True
             # открытие окна с результатами
             result_screen = pygame.display.set_mode((screen_width, screen_height))
             pygame.display.set_caption('Сюжет')
