@@ -135,20 +135,17 @@ def main():
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             pygame.quit()
-                            exit()
                         elif event.type == pygame.MOUSEBUTTONDOWN:
                             mouse_pos = event.pos
                             if button1.collidepoint(mouse_pos):
                                 cursor.execute('''INSERT INTO chooses (room11) VALUES (1)''')
                                 cursor.commit()
                                 pygame.quit()
-                                exit()
                             elif button2.collidepoint(mouse_pos):
                                 cursor.execute("INSERT INTO chooses (room11) VALUES (-1)")
                                 cursor.commit()
                                 done = True
                                 pygame.quit()
-                                exit()
 
                     result_screen.fill(black)
                     result_screen.blit(result_text, result_text_rect)
@@ -183,20 +180,17 @@ def main():
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             pygame.quit()
-                            exit()
                         elif event.type == pygame.MOUSEBUTTONDOWN:
                             mouse_pos = event.pos
                             if button1.collidepoint(mouse_pos):
                                 cursor.execute('''INSERT INTO chooses (room3) VALUES (1)''')
                                 cursor.commit()
                                 pygame.quit()
-                                exit()
                             elif button2.collidepoint(mouse_pos):
                                 cursor.execute("INSERT INTO chooses (room3) VALUES (-1)")
                                 cursor.commit()
                                 done = True
                                 pygame.quit()
-                                exit()
 
                     result_screen.fill(black)
                     result_screen.blit(result_text, result_text_rect)
@@ -231,20 +225,17 @@ def main():
                     for event in pygame.event.get():
                         if event.type == pygame.QUIT:
                             pygame.quit()
-                            exit()
                         elif event.type == pygame.MOUSEBUTTONDOWN:
                             mouse_pos = event.pos
                             if button1.collidepoint(mouse_pos):
                                 cursor.execute('''INSERT INTO chooses (room42) VALUES (1)''')
                                 cursor.commit()
                                 pygame.quit()
-                                exit()
                             elif button2.collidepoint(mouse_pos):
                                 cursor.execute("INSERT INTO chooses (room42) VALUES (-1)")
                                 cursor.commit()
                                 done = True
                                 pygame.quit()
-                                exit()
 
                     result_screen.fill(black)
                     result_screen.blit(result_text, result_text_rect)
