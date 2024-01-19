@@ -11,6 +11,8 @@ win3 = False
 # инициализация pygame
 pygame.init()
 
+con = sqlite3.connect('chooses.db')
+cursor = con.cursor()
 
 def harden():
     global c
