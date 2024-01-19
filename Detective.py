@@ -1,11 +1,15 @@
+from sqlite3.dbapi2 import _CursorT
+from colorama import Cursor
 import pygame
 import sys
 import machinki
-import Tetris
+import tetris
 import arcadashka
 
 from pygame import Surface
 
+white = (255, 255, 255)
+black = (0, 0, 0)
 
 if __name__ == '__main__':
     # Инициализация pygame
@@ -41,18 +45,6 @@ if __name__ == '__main__':
     room_5_surface = pygame.Surface((win_width, win_height))
     room_5_surface.blit(room_5_image, (0, 0))
 
-        # БД
-    conn = sqlite3.connect('chooses.db')
-    cursor = conn.cursor()
-    cursor.execute('''CREATE TABLE IF NOT EXISTS chooses (
-                        room11 INT,
-                        room12 INT,
-                        room2 INT,
-                        room3 INT,
-                        room41 INT,
-                        room42 INT
-                    )''')
-
     # Переменная для хранения текущей комнаты
     current_room: Surface = room_1_surface
     room_num = 0
@@ -78,6 +70,8 @@ if __name__ == '__main__':
     mgbutton5_rect = pygame.Rect(495, 430, 100, 100)
     mgbutton6_rect = pygame.Rect(135, 665, 100, 100)
     mgbutton7_rect = pygame.Rect(580, 653, 100, 100)
+    mgbutton_rect_end = pygame.Rect(580, 653, 100, 100)
+
 
     tetrisdiff = 0
     arcadediff = 0
@@ -125,11 +119,11 @@ if __name__ == '__main__':
                     if mgbutton1_rect.collidepoint(event.pos):
                         if current_room == room_1_surface:
                             if tetrisdiff == 0:
-                                Tetris.main()
+                                tetris.main()
                             else:
                                 tetrisdiff -= 1
-                                Tetris.easen()
-                                Tetris.main()
+                                tetris.easen()
+                                tetris.main()
                     if mgbutton2_rect.collidepoint(event.pos):
                         if current_room == room_1_surface:
                             if arcadediff == 0:
@@ -144,15 +138,15 @@ if __name__ == '__main__':
                     if mgbutton4_rect.collidepoint(event.pos):
                         if current_room == room_2_surface:
                             if tetrisdiff == 1:
-                                Tetris.main()
+                                tetris.main()
                             elif tetrisdiff > 1:
                                 tetrisdiff -= 1
-                                Tetris.easen()
-                                Tetris.main()
+                                tetris.easen()
+                                tetris.main()
                             else:
                                 tetrisdiff += 1
-                                Tetris.harden()
-                                Tetris.main()
+                                tetris.harden()
+                                tetris.main()
                     if mgbutton5_rect.collidepoint(event.pos):
                         if current_room == room_3_surface:
                             if arcadediff == 1:
@@ -168,15 +162,15 @@ if __name__ == '__main__':
                     if mgbutton6_rect.collidepoint(event.pos):
                         if current_room == room_4_surface:
                             if tetrisdiff == 2:
-                                Tetris.main()
+                                tetris.main()
                             elif tetrisdiff > 2:
                                 tetrisdiff -= 1
-                                Tetris.easen()
-                                Tetris.main()
+                                tetris.easen()
+                                tetris.main()
                             else:
                                 tetrisdiff += 1
-                                Tetris.harden()
-                                Tetris.main()
+                                tetris.harden()
+                                tetris.main()
                     if mgbutton7_rect.collidepoint(event.pos):
                         if current_room == room_4_surface:
                             if arcadediff == 2:
@@ -189,6 +183,59 @@ if __name__ == '__main__':
                                 arcadediff += 1
                                 arcadashka.harden()
                                 arcadashka.main()
+                    if mgbutton_rect_end.collidepoint(event.pos):
+                        if current_room == room_5_surface:
+                            def check_sum(): 
+                                # Выполняем SQL-запрос для получения суммы численных значений 
+                                Cursor.execute('SELECT SUM(VALUES) FROM chooses') 
+                                sum_value = Cursor.fetchone()[0] 
+                                # Закрываем соединение с базой данных 
+                                Cursor.close() 
+                                Cursor.close() 
+                            
+                                if sum_value > 0 and game_over_bedroom == True: 
+                                    font = pygame.font.Font(None, 36)
+                                    text = font.render("""За дверью была комната. Посередине комнаты сидел человек. На его руке было кольцо моей подруги, а в руках он держал фрак старика.
+                                                       Рядом с ним был нож. У меня был шанс задержать его, и я им воспользовался. В ту же секунду, как я потянул руку к револьверу, он схватил нож и бросился на меня.
+                                                       Я увернулся и повалил сумасшедшего на землю. Как раз вовремя послышалась ругань полицейских и лай собак. Его арестовали. "Память о моей подруге не будет утеряна" - думал я, сжимая в кулаке её кольцо.
+                                                       Эта семья никогда мне не нравилась, их интриги и коррупция не знали границ, но почему то Она их любила, именно поэтому я взялся за это дело.""", True, white)
+                                    text_rect = text.get_rect(center=(win_width // 2, win_height // 2))
+
+                                    # Основной цикл программы
+                                    done = False
+                                    while not done:
+                                        # Обработка событий
+                                        for event in pygame.event.get():
+                                            if event.type == pygame.QUIT:
+                                                done = True
+                                            elif event.type == pygame.MOUSEBUTTONDOWN:  # Обработка нажатия на кнопку мыши
+                                                done = True
+
+                                        # Отображение текста на экране
+                                        screen.fill(black)
+                                        screen.blit(text, text_rect)
+                                if sum_value < 0 and game_over_bedroom == True:
+                                    font = pygame.font.Font(None, 36)
+                                    text = font.render("""За дверью(а у нас в конце скорее всего будет дверь) была комната. В середине стояло зеркало во весь рост, а над зеркалом выключатель от лампы.
+                                                       Я включил свет. Он был не яркий, но всё было видно. В зеркале отражался я, я был в крови, мои руки, моё лицо всё было в ней, а на моём пальце было кольцо, кольцо моей давней знакомой.
+                                                       Рядом с зеркалом лежал нож и драгоценности, в которых умерла старуха и любимый фрак её мужа, перепачканный в крови.
+                                                       Вдруг послышалась ругань полицейских и лай собак. Меня поймали. Так вот почему семья казалась мне грязной, я сам сделал их такими.""", True, white)
+                                    text_rect = text.get_rect(center=(win_width // 2, win_height // 2))
+
+                                    # Основной цикл программы
+                                    done = False
+                                    while not done:
+                                        # Обработка событий
+                                        for event in pygame.event.get():
+                                            if event.type == pygame.QUIT:
+                                                done = True
+                                            elif event.type == pygame.MOUSEBUTTONDOWN:  # Обработка нажатия на кнопку мыши
+                                                done = True
+
+                                        # Отображение текста на экране
+                                        screen.fill(black)
+                                        screen.blit(text, text_rect)
+
                     window = pygame.display.set_mode((win_width, win_height))
                     pygame.display.set_caption("Потом название придумаем")
         # Обновление экрана
