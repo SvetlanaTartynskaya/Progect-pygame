@@ -71,7 +71,9 @@ if __name__ == '__main__':
 
     tetrisdiff = 0
     arcadediff = 0
-    cursor = sqlite3.connect('chooses.db').cursor()
+    con = sqlite3.connect('chooses.db')
+    cursor = con.cursor()
+
 
     # Основной игровой цикл
     running = True
