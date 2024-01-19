@@ -12,6 +12,8 @@ win1 = False
 win2 = False
 win3 = False
 
+con = sqlite3.connect('chooses.db')
+cursor = con.cursor()
 # инициализируем размер каждой ячейки на игровом поле
 cell_size = 30
 
@@ -202,20 +204,17 @@ def main():
                                     for event in pygame.event.get():
                                         if event.type == pygame.QUIT:
                                             pygame.quit()
-                                            exit()
                                         elif event.type == pygame.MOUSEBUTTONDOWN:
                                             mouse_pos = event.pos
                                             if button1.collidepoint(mouse_pos):
                                                 cursor.execute('''INSERT INTO chooses (room12) VALUES (1)''')
                                                 cursor.commit()
                                                 pygame.quit()
-                                                exit()
                                             elif button2.collidepoint(mouse_pos):
                                                 cursor.execute("INSERT INTO chooses (room12) VALUES (-1)")
                                                 cursor.commit()
                                                 done = True
                                                 pygame.quit()
-                                                exit()
 
                                     result_screen.fill(black)
                                     result_screen.blit(result_text, result_text_rect)
@@ -252,19 +251,16 @@ def main():
                                     for event in pygame.event.get():
                                         if event.type == pygame.QUIT:
                                             pygame.quit()
-                                            exit()
                                         elif event.type == pygame.MOUSEBUTTONDOWN:
                                             mouse_pos = event.pos
                                             if button1.collidepoint(mouse_pos):
                                                 сursor.execute('''INSERT INTO chooses (room41) VALUES (1)''')
                                                 cursor.commit()
                                                 pygame.quit()
-                                                exit()
                                             elif button2.collidepoint(mouse_pos):
                                                 cursor.execute("INSERT INTO chooses (room41) VALUES (-1)")
                                                 cursor.commit()
                                                 pygame.quit()
-                                                exit()
 
                                     result_screen.fill(black)
                                     result_screen.blit(result_text, result_text_rect)
