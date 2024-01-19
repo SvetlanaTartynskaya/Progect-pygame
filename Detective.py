@@ -1,4 +1,3 @@
-from sqlite3.dbapi2 import _CursorT
 from colorama import Cursor
 import pygame
 import sys
@@ -190,7 +189,6 @@ if __name__ == '__main__':
                                 Cursor.execute('SELECT SUM(VALUES) FROM chooses') 
                                 sum_value = Cursor.fetchone()[0] 
                                 # Закрываем соединение с базой данных 
-                                Cursor.close() 
                                 Cursor.close() 
                             
                                 if sum_value > 0 and game_over_bedroom == True: 
