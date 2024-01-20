@@ -180,21 +180,21 @@ if __name__ == '__main__':
             font = pygame.font.Font(None, 27)
             text = font.render("За дверью была комната. В середине стояло зеркало во весь рост, а над зеркалом выключатель от лампы.",
                                True, 'white')
-            text_rect = text.get_rect(topleft=(10, 0))
+            text_rect = text.get_rect(topleft=(10, 500))
             text2 = font.render("Я включил свет. Он был не яркий, но всё было видно. В зеркале отражался я.",
                                True, 'white')
-            text_rect2 = text.get_rect(topleft=(10, 20))
+            text_rect2 = text.get_rect(topleft=(10, 550))
             text3 = font.render("Я был в крови, мои руки, моё лицо всё было в ней, а на моём пальце было кольцо, кольцо моей давней знакомой.",
                                True, 'white')
-            text_rect3 = text.get_rect(topleft=(10, 40))
+            text_rect3 = text.get_rect(topleft=(10, 600))
             text4 = font.render(
                 "Рядом с зеркалом лежал нож и драгоценности, в которых умерла старуха и любимый фрак её мужа, перепачканный в крови.",
                 True, 'white')
-            text_rect4 = text.get_rect(topleft=(10, 60))
+            text_rect4 = text.get_rect(topleft=(10, 650))
             text5 = font.render(
                 "Вдруг послышалась ругань полицейских и лай собак. Меня поймали. Так вот почему семья казалась мне грязной, я сам сделал их такими.",
                 True, 'white')
-            text_rect5 = text.get_rect(topleft=(10, 80))
+            text_rect5 = text.get_rect(topleft=(10, 700))
             window.fill('black')
             window.blit(text, text_rect)
             window.blit(text2, text_rect2)
